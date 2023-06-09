@@ -1,5 +1,4 @@
 addEventListener("DOMContentLoaded", (event) => {
-
   // Artist menu in header
   document.querySelectorAll('.item__btn').forEach(button => {
     button.addEventListener('click', function (openArtistList) {
@@ -31,7 +30,6 @@ addEventListener("DOMContentLoaded", (event) => {
 
   let btnOpenCloseMenu = document.querySelector('.level-one__search');
   let headerLevelTwo = document.querySelector('.header__level-two');
-  let formSearch = document.querySelector('.level-two__form');
   let btnSearch = document.querySelector('.form__search');
 
   btnOpenCloseMenu.addEventListener('click', function () {
@@ -39,12 +37,16 @@ addEventListener("DOMContentLoaded", (event) => {
     headerLevelTwo.classList.toggle('header__level-two--active');
   });
 
+  function btnOpenCloseMenuRemoveClass() {
+    btnOpenCloseMenu.classList.remove('level-one__search--active');
+    headerLevelTwo.classList.remove('header__level-two--active');
+  }
+
   btnOpenCloseMenu.addEventListener('keydown', function (activeSearch) {
     if (document.documentElement.scrollWidth <= 1200 &&
       document.querySelector('.level-one__search--active') != null) {
       if (activeSearch.key === keyEscape) {
-        btnOpenCloseMenu.classList.remove('level-one__search--active');
-        headerLevelTwo.classList.remove('header__level-two--active');
+        btnOpenCloseMenuRemoveClass();
       };
     };
   });
@@ -54,8 +56,7 @@ addEventListener("DOMContentLoaded", (event) => {
       document.querySelector('.level-one__search--active') != null) {
       const keysTrigger = ['Escape', 'Enter'];
       if (keysTrigger.includes(activeSearch.key)) {
-        btnOpenCloseMenu.classList.remove('level-one__search--active');
-        headerLevelTwo.classList.remove('header__level-two--active');
+        btnOpenCloseMenuRemoveClass();
       };
     };
   });
@@ -66,8 +67,7 @@ addEventListener("DOMContentLoaded", (event) => {
       (activeSearch.target.classList.contains('search__icon') != true &&
         activeSearch.target.classList.contains('form__search-text') != true)
     ) {
-      btnOpenCloseMenu.classList.remove('level-one__search--active');
-      headerLevelTwo.classList.remove('header__level-two--active');
+      btnOpenCloseMenuRemoveClass();
     };
   });
 
@@ -75,28 +75,30 @@ addEventListener("DOMContentLoaded", (event) => {
 
   const searchText = document.querySelector('.form__search-text');
 
-  searchText.addEventListener('click', function (activate_searchText) {
-    activate_searchText._isClick = true;
+  searchText.addEventListener('click', function (activateSearchText) {
+    activateSearchText._isClick = true;
     searchText.classList.add("form__search-text--active");
     searchText.classList.add("form__search-text--active::placeholder");
   });
 
-  searchText.addEventListener('keydown', function (activate_searchText) {
+  function searchTextRemoveClass() {
+    searchText.classList.remove("form__search-text--active");
+    searchText.classList.remove("form__search-text--active::placeholder");
+  }
+
+  searchText.addEventListener('keydown', function (activateSearchText) {
     const tabKey = ['Tab', 'Enter', 'Escape']
     if (tabKey.includes(activate_searchText.key)) {
-      searchText.classList.remove("form__search-text--active");
-      searchText.classList.remove("form__search-text--active::placeholder");
+      searchTextRemoveClass();
       if (document.documentElement.scrollWidth <= 1200) {
-        btnOpenCloseMenu.classList.remove('level-one__search--active');
-        headerLevelTwo.classList.remove('header__level-two--active');
+        btnOpenCloseMenuRemoveClass();
       };
     };
   });
 
-  document.body.addEventListener('click', function (activate_searchText) {
-    if (activate_searchText._isClick == true) return
-    searchText.classList.remove("form__search-text--active");
-    searchText.classList.remove("form__search-text--active::placeholder");
+  document.body.addEventListener('click', function (activateSearchText) {
+    if (activateSearchText._isClick == true) return
+    searchTextRemoveClass();
   });
 
   // Burger-menu in header
@@ -106,6 +108,12 @@ addEventListener("DOMContentLoaded", (event) => {
   let menuLinks = menu.querySelectorAll('.nav__link');
   let btnEntrance = menu.querySelector('.level-one__entrance');
 
+  function burgerRemoveClass() {
+    burger.classList.remove('burger--active');
+    menu.classList.remove('level-one__menu--active');
+    document.body.classList.remove('overflow--hidden');
+  }
+
   burger.addEventListener('click', function () {
     burger.classList.toggle('burger--active');
     menu.classList.toggle('level-one__menu--active');
@@ -114,16 +122,12 @@ addEventListener("DOMContentLoaded", (event) => {
 
   menuLinks.forEach(function (el) {
     el.addEventListener('click', function () {
-      burger.classList.remove('burger--active')
-      menu.classList.remove('level-one__menu--active')
-      document.body.classList.remove('overflow--hidden')
+      burgerRemoveClass()
     });
   });
 
   btnEntrance.addEventListener('click', function () {
-    burger.classList.remove('burger--active');
-    menu.classList.remove('level-one__menu--active');
-    document.body.classList.remove('overflow--hidden');
+    burgerRemoveClass()
   });
 
   // Swiper in hero block
@@ -197,7 +201,7 @@ addEventListener("DOMContentLoaded", (event) => {
   //  Open info about picture in gallery block
 
   const btnsPicture = document.querySelectorAll('.gallery__swiper-slide');
-  const windows_overlay = document.querySelector('.gallery__expanding-windows-overlay');
+  const windowsOverlay = document.querySelector('.gallery__expanding-windows-overlay');
   const windows = document.querySelectorAll('.gallery__expanding-window');
   const keyEscape = "Escape"
 
@@ -206,7 +210,7 @@ addEventListener("DOMContentLoaded", (event) => {
       let path = openPicture.currentTarget.getAttribute('data-path');
 
       document.querySelector(`[data-target="${path}"]`).classList.add('expanding-window--visible');
-      windows_overlay.classList.add('expanding-windows-overlay--visible');
+      windowsOverlay.classList.add('expanding-windows-overlay--visible');
       document.querySelector(`[data-path="${path}"]`).classList.add('swiper-slide--active')
     });
   });
@@ -226,7 +230,7 @@ addEventListener("DOMContentLoaded", (event) => {
   });
 
   function closePicture() {
-    windows_overlay.classList.remove('expanding-windows-overlay--visible');
+    windowsOverlay.classList.remove('expanding-windows-overlay--visible');
     windows.forEach((ele) => {
       ele.classList.remove('expanding-window--visible');
     });
