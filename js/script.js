@@ -52,7 +52,7 @@ addEventListener("DOMContentLoaded", (event) => {
   btnSearch.addEventListener('keydown', function (activeSearch) {
     if (document.documentElement.scrollWidth <= 1200 &&
       document.querySelector('.level-one__search--active') != null) {
-      var keysTrigger = ['Escape', 'Enter'];
+      const keysTrigger = ['Escape', 'Enter'];
       if (keysTrigger.includes(activeSearch.key)) {
         btnOpenCloseMenu.classList.remove('level-one__search--active');
         headerLevelTwo.classList.remove('header__level-two--active');
@@ -82,7 +82,7 @@ addEventListener("DOMContentLoaded", (event) => {
   });
 
   searchText.addEventListener('keydown', function (activate_searchText) {
-    var tabKey = ['Tab', 'Enter', 'Escape']
+    const tabKey = ['Tab', 'Enter', 'Escape']
     if (tabKey.includes(activate_searchText.key)) {
       searchText.classList.remove("form__search-text--active");
       searchText.classList.remove("form__search-text--active::placeholder");
@@ -144,8 +144,8 @@ addEventListener("DOMContentLoaded", (event) => {
 
   //  Scroll to map in hero block
 
-  var scrollMap = document.getElementById("myMap");
-  var scrollBtnMap = document.querySelector(".hero__btn")
+  const scrollMap = document.getElementById("myMap");
+  const scrollBtnMap = document.querySelector(".hero__btn")
 
   function handleBtnClickScroll() {
     scrollMap.scrollIntoView({ block: "center", behavior: "smooth" });
@@ -336,7 +336,7 @@ addEventListener("DOMContentLoaded", (event) => {
 
   toolTip.forEach((btn) => {
     btn.addEventListener('keydown', (keydown) => {
-      var keysTrigger = ['Escape', 'Enter', 'Tab'];
+      const keysTrigger = ['Escape', 'Enter', 'Tab'];
       if (document.querySelector('.marker--active') != null &&
         keysTrigger.includes(keydown.key)) {
         toolTip.forEach((btnO) => {
@@ -398,8 +398,8 @@ addEventListener("DOMContentLoaded", (event) => {
 
   // form in contacts block
 
-  var selectTel = document.querySelector("input[type='tel']");
-  var telMask = new Inputmask("+7(999) 999-99-99")
+  const selectTel = document.querySelector("input[type='tel']");
+  const telMask = new Inputmask("+7(999) 999-99-99")
 
   telMask.mask(selectTel)
 
@@ -474,10 +474,12 @@ addEventListener("DOMContentLoaded", (event) => {
 
   // map in contacts block
 
+  let webSiteSize;
+
   if (document.documentElement.scrollWidth > 576) {
-    var webSiteSize = 'big'
+    webSiteSize = 'big';
   } else {
-    var webSiteSize = 'little'
+    webSiteSize = 'little';
   };
 
   ymaps.ready(init);
@@ -495,7 +497,7 @@ addEventListener("DOMContentLoaded", (event) => {
 
     myMap.behaviors.disable('scrollZoom', 'drag');
 
-    var myPlacemark = new ymaps.Placemark([55.758468, 37.601088], {}, {
+    const myPlacemark = new ymaps.Placemark([55.758468, 37.601088], {}, {
       iconLayout: 'default#image',
       iconImageHref: 'img/contacts/point.svg',
       iconImageSize: [20, 20],
