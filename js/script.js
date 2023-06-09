@@ -547,7 +547,6 @@ addEventListener("DOMContentLoaded", (event) => {
   };
 
   document.querySelectorAll('.simplebar-content-wrapper').forEach(elem => {
-    console.log(elem);
     elem.setAttribute('tabindex', '-1');
   });
 
